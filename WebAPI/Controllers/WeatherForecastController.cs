@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace PersonApi.Controllers
+namespace WebAPI.Controllers
 {
     [ApiController]
-    [Route("WeatherForecast")]
+    [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -19,11 +20,10 @@ namespace PersonApi.Controllers
         }
 
         /// <summary>
-        /// Retrieve all weather forecast informations
+        /// Retrieves all weather forecast information
         /// </summary>
-        /// <returns>list of <see cref="WeatherForecast"/>.</returns>
-        [HttpGet]
-        [Route("")]
+        /// <returns>list of <see cref="WeatherForecast" /></returns>
+        [HttpGet(""), SwaggerOperation(OperationId = "GetWeatherForecasts")]
         public IEnumerable<WeatherForecast> List()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -34,9 +34,8 @@ namespace PersonApi.Controllers
             });
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public WeatherForecast Get(int id)
+        [HttpGet("{id}"), SwaggerOperation(OperationId = "GetWeatherForecast")]
+        public WeatherForecast GetById(int id)
         {
             return new WeatherForecast
             {
@@ -46,26 +45,30 @@ namespace PersonApi.Controllers
             };
         }
 
-        /// <summary>
-        /// Add new weather forecast information
-        /// </summary>
-        /// <param name="model"><see cref="WeatherForecast"/></param>
-        /// <response code="200">Product created</response>
-        /// <response code="400">Product has missing/invalid values</response>
-        /// <response code="500">Oops! Can't create your product right now</response>
-        [HttpPost(Name = "")]
+        [HttpGet("datetime/{dt}"), SwaggerOperation(OperationId = "GetWeatherForecastByDate")]
+        public WeatherForecast GetByDate(DateTime dt)
+        {
+            return new WeatherForecast
+            {
+                Date = dt,
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            };
+        }
+
+        [HttpPost(""), SwaggerOperation(OperationId = "AddWeatherForecast")]
         public void Add(WeatherForecast model)
         {
 
         }
 
-        [HttpPut(Name = "{id}")]
-        public void Update(int id)
+        [HttpPut("{id}"), SwaggerOperation(OperationId = "UpdateWeatherForecast")]
+        public void Update(int id, WeatherForecast model)
         {
 
         }
 
-        [HttpDelete(Name = "{id}")]
+        [HttpDelete("{id}"), SwaggerOperation(OperationId = "DeleteWeatherForecast")]
         public void Delete(int id)
         {
 

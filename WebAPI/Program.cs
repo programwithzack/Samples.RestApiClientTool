@@ -7,8 +7,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
-    var filePath = Path.Combine(AppContext.BaseDirectory, "PersonApi.xml");
+    var filePath = Path.Combine(AppContext.BaseDirectory, "WebApi.xml");
     option.IncludeXmlComments(filePath);
+
+    option.EnableAnnotations();
 });
 
 var app = builder.Build();

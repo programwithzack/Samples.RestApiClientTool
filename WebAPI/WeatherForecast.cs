@@ -1,4 +1,4 @@
-namespace PersonApi
+namespace WebAPI
 {
     public class WeatherForecast
     {
@@ -6,7 +6,7 @@ namespace PersonApi
         /// <summary>
         /// forecast date
         /// </summary>
-        /// <example>2022-06-15T21:15:03.0031973-06:00</example>
+        /// <example>2022-06-16</example>
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
